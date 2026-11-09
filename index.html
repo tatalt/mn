@@ -3,55 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нэр цуглуулах хуудас</title>
+    <title>Хүргэлтийн систем</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 80px;
-            background-color: #f4f7f6;
-        }
-        .container {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            display: inline-block;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        input {
-            padding: 12px;
-            font-size: 16px;
-            width: 250px;
-            margin-right: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            background-color: #2e7d32;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #1b5e20;
-        }
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f7f6; }
+        .box { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; text-align: left; }
+        input, textarea { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
+        button { width: 100%; padding: 10px; background-color: #2e7d32; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #1b5e20; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Манай сайтад бүртгүүлэх</h2>
-        <p>Доор нэрээ бичиж илгээнэ үү:</p>
-        
-        <!-- Зөвхөн нэр цуглуулах Formspree форм -->
-        <form action="https://formspree.io/f/xaeegqyy" method="POST">
-            <input type="text" name="username" placeholder="Таны бүтэн нэр..." required>
-            <button type="submit">Илгээх</button>
-        </form>
+    <div class="box">
+        <!-- НЭВТРЭХ ХЭСЭГ -->
+        <div id="loginSection">
+            <h3>Нэвтрэх</h3>
+            <label>Хэрэглэгчийн нэр:</label>
+            <input type="text" id="username" placeholder="Нэр...">
+            
+            <label>Нууц үг:</label>
+            <input type="password" id="password" placeholder="Нууц үг...">
+            
+            <button onclick="checkCredentials()">Нэвтрэх</button>
+        </div>
+
+        <!-- НЭВТРЭСНИЙ ДАРААХ ХҮРГЭЛТИЙН ХЭСЭГ -->
+        <div id="deliverySection" class="hidden">
+            <h3>Хүргэлтийн мэдээлэл оруулах</h3>
+            <p id="welcomeMsg" style="color: green; font-weight: bold;"></p>
+            
+            <label>Хүргэх хаяг:</label>
+            <textarea id="address" placeholder="Гэрийн хаяг..."></small></textarea>
+            
+            <label>Утасны дугаар:</label>
+            <input type="text" id="phone" placeholder="Утас...">
+            
+            <button onclick="sendDeliveryOrder()">Захиалга өгөх</button>
+        </div>
     </div>
+
+    <script>
+        // Энд та өөрийнхөө шалгалтын логикийг бичнэ
+        function checkCredentials() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+
+            // Жишээ шалгалт (Та энд өөрийн шалгуураа тавина)
+            // Жишээ нь: хэрэв өгөгдөл зөв бол
+            if (user === "admin" && pass === "1234") {
+                // Амжилттай нэвтэрсэн үед нэвтрэх хэсгийг нууж, хүргэлтийн хэсгийг гаргана
+                document.getElementById("loginSection").classList.add("hidden");
+                document.getElementById("deliverySection").classList.remove("hidden");
+                document.getElementById("welcomeMsg").innerText = "Тавтай морил, " + user + "!";
+            } else {
+                alert("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна!");
+            }
+        }
+
+        function sendDeliveryOrder() {
+            const address = document.getElementById("address").value;
+            const phone = document.getElementById("phone").value;
+
+            if (address && phone) {
+                // Энд хүргэлтийн мэдээллээ Formspree эсвэл өөрийн хүссэн систем рүү явуулж болно
+                alert("Хүргэлтийн захиалга амжилттай үүслээ!");
+                // Хоослох эсвэл бусад үйлдэл хийх
+            } else {
+                alert("Бүх талбарыг бөглөнө үү!");
+            }
+        }
+    </script>
 
 </body>
 </html>
