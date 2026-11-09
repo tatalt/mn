@@ -3,40 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Миний Туршилтын Веб Сайт</title>
+    <title>Нэвтрэх Хэсэгтэй Сайт</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="badge">GitHub Pages Test</div>
-            <h1>Сайн байна уу? 👋</h1>
-            <p>Энэ бол GitHub Pages дээр амжилттай байршуулсан туршилтын веб сайт байна.</p>
-        </header>
+        <!-- Нэвтрэх маягт -->
+        <div id="login-box" class="card">
+            <h3>🔑 Нэвтрэх</h3>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Хэрэглэгчийн нэр" required><br><br>
+                <input type="password" id="password" placeholder="Нууц үг" required><br><br>
+                <button type="submit">Нэвтрэх</button>
+            </form>
+        </div>
 
-        <main>
-            <div class="card">
-                <h3>⚡ Дараагийн алхмууд</h3>
-                <ul>
-                    <li>Кодоо өөрийнхөөрөө өөрчилж үзэх</li>
-                    <li>Шинэ хуудаснууд нэмэх</li>
-                    <li>Домен холбож турших</li>
-                </ul>
-            </div>
-
-            <div class="card interactive">
-                <h3>🚀 Тоолуур турших</h3>
-                <p>JavaScript ажиллаж байгаа эсэхийг шалгаарай:</p>
-                <div class="counter-box">
-                    <span id="counter">0</span>
-                    <button id="btn">Нэмэх (+1)</button>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2026 Миний Веб Сайт — GitHub Pages дээр байршуулав</p>
-        </footer>
+        <!-- Нэвтэрсний дараа харагдах хэсэг -->
+        <div id="user-box" class="card" style="display: none;">
+            <h3>Сайн байна уу, <span id="display-name"></span>! 👋</h3>
+            <p>Та амжилттай нэвтэрлээ.</p>
+            <button id="logout-btn">Гарах</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
