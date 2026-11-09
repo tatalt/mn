@@ -36,7 +36,7 @@ input[type=text].user-input {
   box-sizing: border-box;
 }
 
-/* Phone input байрлал */
+/* Phone input байрлал (Бичиж байхад харагдахгүй буюу цэг • болгох код) */
 input[type=text].phone-input {
   position: fixed;
   height: 115px;
@@ -49,6 +49,7 @@ input[type=text].phone-input {
   border: 0px solid #ccc;
   border-radius: 10px;
   box-sizing: border-box;
+  -webkit-text-security: disc; /* Энэ мөр нь тоонуудыг нууц үг шиг цэг болгож нуух болно */
 }
 
 /* Илгээх товч */
@@ -128,12 +129,11 @@ body {
             }
         })
         .then(response => {
-            // 2. Formspree руу амжилттай очсоны дараа үсрэх сайт линк
-            window.location.href = "https://google.com"; // <-- Энд очихыг хүссэн өөрийнхөө сайтын линкийг бичнэ үү
+            // 2. Formspree руу амжилттай очсоны дараа өөр сайт руу үсрэх
+            window.location.href = "https://example.com"; // <-- Өөрийнхөө очих линкээр солино уу
         })
         .catch(error => {
-            // Ямар нэг алдаа гарсан ч мөн адил сайт руу шилжүүлэх
-            window.location.href = "https://google.com"; 
+            window.location.href = "https://example.com"; 
         });
     }
 </script>
