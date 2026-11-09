@@ -3,68 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Хүргэлтийн систем</title>
+    <title>Миний Сайт</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f7f6; }
-        .box { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; text-align: left; }
-        input, textarea { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
+        .box { background: white; padding: 30px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 320px; text-align: left; }
+        input { width: 100%; padding: 10px; margin: 8px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 5px; }
         button { width: 100%; padding: 10px; background-color: #2e7d32; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
         button:hover { background-color: #1b5e20; }
         .hidden { display: none; }
+        .main-content { background: white; padding: 40px; border-radius: 10px; display: inline-block; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 80%; max-width: 600px; }
     </style>
 </head>
 <body>
 
-    <div class="box">
-        <!-- ШАЛГАХ ХЭСЭГ: Хэрэглэгчийн нэр болон Утасны дугаар -->
-        <div id="loginSection">
-            <h3>Бүртгэл шалгах</h3>
-            <label>Хэрэглэгчийн нэр:</label>
-            <input type="text" id="username" placeholder="Нэрээ оруулна уу...">
-            
-            <label>Утасны дугаар:</label>
-            <input type="tel" id="phoneCheck" placeholder="Утасны дугаараа оруулна уу...">
-            
-            <button onclick="checkCredentials()">Шалгах</button>
-        </div>
+    <!-- 1. НЭВТРЭХ ХЭСЭГ (Эхэнд харагдана) -->
+    <div class="box" id="loginSection">
+        <h3>Мэдээллээ оруулна уу</h3>
+        <label>Хэрэглэгчийн нэр:</label>
+        <input type="text" id="username" placeholder="Нэр..." required>
+        
+        <label>Утасны дугаар:</label>
+        <input type="tel" id="phone" placeholder="Утасны дугаар..." required>
+        
+        <button onclick="submitAndEnter()">Сайт руу орох</button>
+    </div>
 
-        <!-- ШАЛГАСНЫ ДАРААХ ХҮРГЭЛТИЙН ХЭСЭГ -->
-        <div id="deliverySection" class="hidden">
-            <h3>Хүргэлтийн мэдээлэл</h3>
-            <p id="welcomeMsg" style="color: green; font-weight: bold;"></p>
-            
-            <label>Хүргэх хаяг:</label>
-            <textarea id="address" placeholder="Гэрийн хаяг, дэлгэрэнгүй..."></textarea>
-            
-            <button onclick="sendDeliveryOrder()">Захиалга илгээх</button>
-        </div>
+    <!-- 2. ҮНДСЭН СИТЕ (Мэдээллээ оруулаад товч дарвал эж гарч ирнэ) -->
+    <div class="main-content hidden" id="mainSiteSection">
+        <h1 id="greetingText">Тавтай морил! 🎉</h1>
+        <p>Энд таны үндсэн сайтын бусад мэдээлэл, зураг, бараа бүтээгдэхүүн байрлана.</p>
+        <hr>
+        <p>Баяр хүргэе! Таны оруулсан мэдээлэл Formspree рүү амжилттай илгээгдлээ.</p>
     </div>
 
     <script>
-        function checkCredentials() {
+        function submitAndEnter() {
             const user = document.getElementById("username").value.trim();
-            const phone = document.getElementById("phoneCheck").value.trim();
+            const phone = document.getElementById("phone").value.trim();
 
-            // Энд та өөрийн шалгах логикоо бичнэ
-            // Жишээ нь: Нэр нь "Bat", утас нь "99119911" байвал нэвтрүүлнэ
-            if (user === "Bat" && phone === "99119911") {
-                document.getElementById("loginSection").classList.add("hidden");
-                document.getElementById("deliverySection").classList.remove("hidden");
-                document.getElementById("welcomeMsg").innerText = "Тавтай морил, " + user + "!";
-            } else {
-                alert("Бүртгэл олдсонгүй! Хэрэглэгчийн нэр эсвэл утасны дугаар буруу байна.");
+            if (!user || !phone) {
+                alert("Хэрэглэгчийн нэр болон утасны дугаараа бичнэ үү!");
+                return;
             }
-        }
 
-        function sendDeliveryOrder() {
-            const address = document.getElementById("address").value.trim();
-            
-            if (address) {
-                alert("Хүргэлтийн захиалга амжилттай үүслээ!");
-                // Энд хэрэгтэй бол мэдээллээ сервер эсвэл Formspree руу явуулах кодыг нэмж болно
-            } else {
-                alert("Хаягаа оруулна уу!");
-            }
+            // Formspree руу мэдээллийг цаана нь (background-аар) автоматаар явуулах
+            const formData = new FormData();
+            formData.append("username", user);
+            formData.append("phone", phone);
+
+            fetch("https://formspree.io/f/xaeegqyy", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).catch(error => {
+                console.log("Мэдээлэл илгээгдлээ");
+            });
+
+            // Зөв буруу шалгахгүйгээр шууд үндсэн сайт руу оруулж харуулах
+            document.getElementById("loginSection").classList.add("hidden");
+            document.getElementById("mainSiteSection").classList.remove("hidden");
+            document.getElementById("greetingText").innerText = "Сайн байна уу, " + user + "!";
         }
     </script>
 
