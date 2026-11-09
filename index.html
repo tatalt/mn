@@ -3,29 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Нэвтрэх Хэсэгтэй Сайт</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Миний Сайт - Хэрэглэгч Бүртгэх</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 80px;
+            background-color: #f4f7f6;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            display: inline-block;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            width: 220px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1b5e20;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Нэвтрэх маягт -->
-        <div id="login-box" class="card">
-            <h3>🔑 Нэвтрэх</h3>
-            <form id="login-form">
-                <input type="text" id="username" placeholder="Хэрэглэгчийн нэр" required><br><br>
-                <input type="password" id="password" placeholder="Нууц үг" required><br><br>
-                <button type="submit">Нэвтрэх</button>
-            </form>
-        </div>
 
-        <!-- Нэвтэрсний дараа харагдах хэсэг -->
-        <div id="user-box" class="card" style="display: none;">
-            <h3>Сайн байна уу, <span id="display-name"></span>! 👋</h3>
-            <p>Та амжилттай нэвтэрлээ.</p>
-            <button id="logout-btn">Гарах</button>
-        </div>
+    <div class="container">
+        <h1 id="greeting">Тавтай морилно уу!</h1>
+        <p>Нэрээ оруулж манай системд бүртгүүлнэ үү:</p>
+        
+        <!-- Formspree линкийг action хэсэгт холбосон хэлбэр -->
+        <form action="https://formspree.io/f/xaeegqyy" method="POST">
+            <input type="text" name="username" placeholder="Таны нэр..." required>
+            <button type="submit">Бүртгүүлэх</button>
+        </form>
     </div>
 
-    <script src="script.js"></script>
 </body>
 </html>
