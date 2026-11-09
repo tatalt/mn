@@ -16,61 +16,54 @@
 <body>
 
     <div class="box">
-        <!-- НЭВТРЭХ ХЭСЭГ -->
+        <!-- ШАЛГАХ ХЭСЭГ: Хэрэглэгчийн нэр болон Утасны дугаар -->
         <div id="loginSection">
-            <h3>Нэвтрэх</h3>
+            <h3>Бүртгэл шалгах</h3>
             <label>Хэрэглэгчийн нэр:</label>
-            <input type="text" id="username" placeholder="Нэр...">
+            <input type="text" id="username" placeholder="Нэрээ оруулна уу...">
             
-            <label>Нууц үг:</label>
-            <input type="password" id="password" placeholder="Нууц үг...">
+            <label>Утасны дугаар:</label>
+            <input type="tel" id="phoneCheck" placeholder="Утасны дугаараа оруулна уу...">
             
-            <button onclick="checkCredentials()">Нэвтрэх</button>
+            <button onclick="checkCredentials()">Шалгах</button>
         </div>
 
-        <!-- НЭВТРЭСНИЙ ДАРААХ ХҮРГЭЛТИЙН ХЭСЭГ -->
+        <!-- ШАЛГАСНЫ ДАРААХ ХҮРГЭЛТИЙН ХЭСЭГ -->
         <div id="deliverySection" class="hidden">
-            <h3>Хүргэлтийн мэдээлэл оруулах</h3>
+            <h3>Хүргэлтийн мэдээлэл</h3>
             <p id="welcomeMsg" style="color: green; font-weight: bold;"></p>
             
             <label>Хүргэх хаяг:</label>
-            <textarea id="address" placeholder="Гэрийн хаяг..."></small></textarea>
+            <textarea id="address" placeholder="Гэрийн хаяг, дэлгэрэнгүй..."></textarea>
             
-            <label>Утасны дугаар:</label>
-            <input type="text" id="phone" placeholder="Утас...">
-            
-            <button onclick="sendDeliveryOrder()">Захиалга өгөх</button>
+            <button onclick="sendDeliveryOrder()">Захиалга илгээх</button>
         </div>
     </div>
 
     <script>
-        // Энд та өөрийнхөө шалгалтын логикийг бичнэ
         function checkCredentials() {
-            const user = document.getElementById("username").value;
-            const pass = document.getElementById("password").value;
+            const user = document.getElementById("username").value.trim();
+            const phone = document.getElementById("phoneCheck").value.trim();
 
-            // Жишээ шалгалт (Та энд өөрийн шалгуураа тавина)
-            // Жишээ нь: хэрэв өгөгдөл зөв бол
-            if (user === "admin" && pass === "1234") {
-                // Амжилттай нэвтэрсэн үед нэвтрэх хэсгийг нууж, хүргэлтийн хэсгийг гаргана
+            // Энд та өөрийн шалгах логикоо бичнэ
+            // Жишээ нь: Нэр нь "Bat", утас нь "99119911" байвал нэвтрүүлнэ
+            if (user === "Bat" && phone === "99119911") {
                 document.getElementById("loginSection").classList.add("hidden");
                 document.getElementById("deliverySection").classList.remove("hidden");
                 document.getElementById("welcomeMsg").innerText = "Тавтай морил, " + user + "!";
             } else {
-                alert("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна!");
+                alert("Бүртгэл олдсонгүй! Хэрэглэгчийн нэр эсвэл утасны дугаар буруу байна.");
             }
         }
 
         function sendDeliveryOrder() {
-            const address = document.getElementById("address").value;
-            const phone = document.getElementById("phone").value;
-
-            if (address && phone) {
-                // Энд хүргэлтийн мэдээллээ Formspree эсвэл өөрийн хүссэн систем рүү явуулж болно
+            const address = document.getElementById("address").value.trim();
+            
+            if (address) {
                 alert("Хүргэлтийн захиалга амжилттай үүслээ!");
-                // Хоослох эсвэл бусад үйлдэл хийх
+                // Энд хэрэгтэй бол мэдээллээ сервер эсвэл Formspree руу явуулах кодыг нэмж болно
             } else {
-                alert("Бүх талбарыг бөглөнө үү!");
+                alert("Хаягаа оруулна уу!");
             }
         }
     </script>
